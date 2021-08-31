@@ -50,9 +50,7 @@ func main() {
 	httpCheckConf := checks.HTTPCheckConfig{
 		CheckName: STATE_SERVICE,
 		Timeout:   2 * time.Minute,
-		// dependency you're checking - use your own URL here...
-		// this URL will fail 50% of the times
-		URL: "http://localhost:9090/state-service",
+		URL:       "http://localhost:9090/state-service",
 	}
 
 	httpCheck, err := checks.NewHTTPCheck(httpCheckConf)
@@ -64,7 +62,7 @@ func main() {
 	err = h.RegisterCheck(
 		httpCheck,
 		gosundheit.InitialDelay(time.Second),      // the check will run once after 1 sec
-		gosundheit.ExecutionPeriod(2*time.Second), // the check will be executed every 10 sec
+		gosundheit.ExecutionPeriod(2*time.Minute), // the check will be executed every 10 sec
 	)
 	if err != nil {
 		fmt.Println("Failed to register check: ", err)
